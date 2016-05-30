@@ -1,0 +1,19 @@
+{
+  "name": "magnon-splash",
+  "version": "0.1.0",
+  "description": "A splash screen for Magnon",
+  "scripts": {
+    "build": "gulp",
+    "dev": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magnontobi/magnon-splash.git"
+  },
+  "author": "magnontobi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/magnontobi/magnon-splash/issues"
+  },
+  "homepage": "https://github.com/magnontobi/magnon-splash#readme"
+}
