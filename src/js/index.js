@@ -5,7 +5,7 @@
 // If you assign an onEnd property to the object and it's a function, it'll fire
 // once the splash is completed.
 
-export class Splash {
+class Splash {
 	constructor(times) {
 		this._times = times;
 	}
@@ -51,7 +51,7 @@ export class Splash {
 //     }
 // }
 
-export class SplashTimer {
+class SplashTimer {
 	constructor(delay, parts) {
 		this.delay = delay;
 		this.parts = parts;
@@ -102,7 +102,7 @@ export class SplashTimer {
 //
 // When implementing the in, out and stay functions, you most likely want to use
 // css styles, which you do with `this.setStyle(style, value)`.
-export class SplashEffect {
+class SplashEffect {
 	constructor(element) {
 		this.element = element;
 	}
@@ -119,7 +119,7 @@ export class SplashEffect {
 
 // ### Some basic effects ###
 
-export class GrowAndShrink extends SplashEffect {
+class GrowAndShrink extends SplashEffect {
 	constructor(element, min, max) {
 		super(element);
 
@@ -136,6 +136,6 @@ export class GrowAndShrink extends SplashEffect {
 	}
 }
 
-export class FadeIn extends SplashEffect {
+class FadeIn extends SplashEffect {
 
 }
