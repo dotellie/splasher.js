@@ -128,11 +128,11 @@ export class GrowAndShrink extends SplashEffect {
 	}
 
 	in(value) {
-
+		this.setStyle("transform", "scale(" + value + ")");
 	}
 
 	out(value) {
-
+		this.setStyle("transform", "scale(" + (value * -1 + 1) + ")");
 	}
 }
 
