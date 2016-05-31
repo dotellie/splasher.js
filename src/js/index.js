@@ -50,9 +50,9 @@ class SplashTimer {
 		this.delay = delay;
 		this.effect = effects;
 		this.parts = {
-			parts.opening || 0,
-			parts.stay || 0,
-			parts.out || 0
+			open: parts.opening || 0,
+			stay: parts.stay || 0,
+			out: parts.out || 0
 		}
 	}
 
