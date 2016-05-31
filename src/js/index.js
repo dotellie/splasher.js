@@ -36,54 +36,52 @@ class Splash {
 // Creates a splash timer object. Used for timing all the effects.
 //
 // delay: How much should this timer be delayed after the splash was started (seconds)
+// effects: [Array<SplashEffect>] What effects to use
 // parts: {
-//     open: {
-//         length: [Float] For how long does this part last (seconds)
-//         effects: [Array<SplashEffect>] What effects to use
-//     },
-//     stay: {
-//         length: [Float] For how long does this part last (seconds)
-//         effects: [Array<SplashEffect>] What effects to use
-//     }
-//     out: {
-//         length: [Float] For how long does this part last (seconds)
-//         effects: [Array<SplashEffect>] What effects to use
-//     }
+//     open: [Float] How long opening does this timer have (seconds)
+//     stay: [Float] How long does it stay (the middle part) (seconds)
+//     out: [Float] How long does it take it to end (seconds)
 // }
+//
+// If one of the parts isn't present, a value of 0 seconds will be assumed.
 
 class SplashTimer {
-	constructor(delay, parts) {
+	constructor(delay, effects, parts) {
 		this.delay = delay;
-		this.parts = parts;
+		this.effect = effects;
+		this.parts = {
+			parts.opening || 0,
+			parts.stay || 0,
+			parts.out || 0
+		}
 	}
 
 	update(delta) {
 		this.seconds += delta;
 
-		for (let part of this.parts) { // TODO: Don't do this if already done
-			let partTime = [
-				part.open.length,
-				part.open.length + part.stay.length,
-				part.open.length + part.stay.length + part.out.length
-			];
-			if (this.seconds <= partTime[0]) {
-				let value = this.seconds / part.length;
+		let partTime = [
+			this.parts.open,
+			this.parts.open + this.parts.stay,
+			this.parts.open + this.parts.stay + this.parts.out
+		];
 
-				for (let effect of part.effects) {
-					effect.in(value);
-				}
-			} else if (this.seconds <= partTime[1]) {
-				let value = (this.seconds - partTime[0]) / part.length;
+		if (this.seconds <= partTime[0]) {
+			let value = this.seconds / this.parts.open;
 
-				for (let effect of part.effects) {
-					effect.stay(value);
-				}
-			} else if (this.seconds <= partTime[2]) {
-				let value = (this.seconds - partTime[1]) / part.length;
+			for (let effect of this.effects) {
+				effect.in(value);
+			}
+		} else if (this.seconds <= partTime[1]) {
+			let value = (this.seconds - partTime[0]) / this.parts.stay;
 
-				for (let effect of part.effects) {
-					effect.out(value);
-				}
+			for (let effect of this.effects) {
+				effect.stay(value);
+			}
+		} else if (this.seconds <= partTime[2]) {
+			let value = (this.seconds - partTime[1]) / this.parts.out;
+
+			for (let effect of this.effects) {
+				effect.out(value);
 			}
 		}
 	}
