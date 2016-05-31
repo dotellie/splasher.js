@@ -39,15 +39,15 @@ export class Splash {
 // parts: {
 //     open: {
 //         length: [Float] For how long does this part last (seconds)
-//         style: [Array<SplashEffect>] What effects to use
+//         effects: [Array<SplashEffect>] What effects to use
 //     },
 //     stay: {
 //         length: [Float] For how long does this part last (seconds)
-//         style: [Array<SplashEffect>] What effects to use
+//         effects: [Array<SplashEffect>] What effects to use
 //     }
 //     end: {
 //         length: [Float] For how long does this part last (seconds)
-//         style: [Array<SplashEffect>] What effects to use
+//         effects: [Array<SplashEffect>] What effects to use
 //     }
 // }
 
@@ -67,11 +67,23 @@ export class SplashTimer {
 				part.open.length + part.stay.length + part.end.length
 			];
 			if (this.seconds <= partTime[0]) {
+				let value = this.seconds / part.length;
 
+				for (let effect of part.effects) {
+					effect.in(value);
+				}
 			} else if (this.seconds <= partTime[1]) {
+				let value = (this.seconds - partTime[0]) / part.length;
 
+				for (let effect of part.effects) {
+					effect.stay(value);
+				}
 			} else if (this.seconds <= partTime[2]) {
+				let value = (this.seconds - partTime[1]) / part.length;
 
+				for (let effect of part.effects) {
+					effect.end(value);
+				}
 			}
 		}
 	}
