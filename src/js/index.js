@@ -22,7 +22,7 @@ class Splash {
 
 	_update() {
 		let now = window.performance.now(),
-			delta = this._previousTime - now;
+			delta = now - this._previousTime;
 		this._previousTime = now;
 
 		for (let time of this._times) {
@@ -71,6 +71,7 @@ class SplashTimer {
 			for (let effect of this.effects) {
 				effect.in(value);
 			}
+			console.log(this.seconds, partTime);
 		} else if (this.seconds <= partTime[1]) {
 			let value = (this.seconds - partTime[0]) / this.parts.stay;
 
