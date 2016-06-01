@@ -11,11 +11,35 @@
 			body {
 				background: rgba(50, 166, 212, 1);
 			}
+
+			#text {
+				position: absolute;
+				top: 0; right: 0; bottom: 0; left: 0;
+				margin: auto;
+				width: 700px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				font-size: 60px;
+				color: white;
+			}
 		</style>
-		<script>
-			
-		</script>
 	</head>
 	<body>
+		<span id="text">Hello, World!</span>
+
+		<script>
+			var element = document.getElementById("text");
+			var splashTimes = [
+				new SplashTimer(1, [
+					new GrowAndShrink(element, 0.5, 1),
+					new FadeInAndOut(element)
+				], {
+					open: 0.3, stay: 2, out: 0.5
+				})
+			];
+			var splash = new Splash(splashTimes);
+			splash.run();
+		</script>
 	</body>
 </html>
