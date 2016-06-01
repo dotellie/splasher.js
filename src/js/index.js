@@ -57,7 +57,7 @@ class SplashTimer {
 	}
 
 	update(delta) {
-		this.seconds += delta;
+		this.seconds += delta / 1000;
 
 		let partTime = [
 			this.parts.open,
@@ -119,7 +119,6 @@ class SplashEffect {
 
 	applyTransforms() {
 		this.element.style.transform = "";
-		console.log(this.transforms);
 
 		for (let transformName in this.transforms) {
 			let transformValue = this.transforms[transformName];
