@@ -43,21 +43,22 @@
 		<script>
 			var maintext = document.getElementById("maintext");
 			var subtext = document.getElementById("subtext");
-			var splashTimes = [
-				new SplashTimer(1, [
-					new GrowAndShrink(maintext, 0.5, 1),
-					new FadeInAndOut(maintext)
-				], {
-					open: 0.3, stay: 2.4, out: 0.5
-				}),
-				new SplashTimer(2, [
-					new GrowAndShrink(subtext, 0.5, 1),
-					new FadeInAndOut(subtext)
-				], {
-					open: 0.3, stay: 1.8, out: 0.2
-				})
-			];
-			var splash = new Splash(splashTimes);
+			var splash = from([
+				{
+					delay: 1, in: 0.3, stay: 2.4, out: 0.5,
+					effects: [
+						new GrowAndShrink(maintext, 0.5, 1),
+						new FadeInAndOut(maintext)
+					]
+				},
+				{
+					delay: 2, in: 0.3, stay: 1.8, out: 0.2,
+					effects: [
+						new GrowAndShrink(subtext, 0.5, 1),
+						new FadeInAndOut(subtext)
+					]
+				}
+			]);
 			splash.run();
 		</script>
 	</body>
