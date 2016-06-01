@@ -48,9 +48,9 @@ class Splash {
 class SplashTimer {
 	constructor(delay, effects, parts) {
 		this.delay = delay;
-		this.effect = effects;
+		this.effects = effects;
 		this.parts = {
-			open: parts.opening || 0,
+			open: parts.open || 0,
 			stay: parts.stay || 0,
 			out: parts.out || 0
 		}
