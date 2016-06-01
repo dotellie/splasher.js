@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magnontobi/magnon-splash.git"
+    "url": "git+https://github.com:magnontobi/splasher.js.git"
   },
   "author": "magnontobi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/magnontobi/magnon-splash/issues"
+    "url": "https://github.com/magnontobi/splasher.js/issues"
   },
-  "homepage": "https://github.com/magnontobi/magnon-splash#readme",
+  "homepage": "https://github.com/magnontobi/splasher.js#readme",
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "gulp": "^3.9.1",
