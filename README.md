@@ -1,2 +1,4 @@
-# Magnon Splash
-It may not be much now, but I hope to get this up to scuff in the future to have it on not only our website, but also games and such.
+# Splasher.js
+Splasher.js is a library meant to help you with making quick animations and a
+bit more specifically, splash screens. It's farily lightweight and helps you
+create awesome animations for every project you're working on!

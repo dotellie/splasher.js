@@ -1,7 +1,8 @@
 {
-  "name": "magnon-splash",
+  "name": "splasher.js",
   "version": "0.1.0",
-  "description": "A splash screen for Magnon",
+  "description": "A simple and lightweight library for making simple animations.",
+  "main": "./src/js/index.js",
   "scripts": {
     "build": "gulp",
     "dev": "gulp watch"
