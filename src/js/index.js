@@ -134,16 +134,16 @@ class GrowAndShrink extends SplashEffect {
 	constructor(element, min, max) {
 		super(element);
 
-		this.min = min;
-		if (typeof max == "undefined") max = 1;
+		this.min = min || 0;
+		this.max = max || 1;
 	}
 
 	in(value) {
-		this.setTransform("scale", value);
+		this.setTransform("scale", (this.max - this.min) * value + this.min);
 	}
 
 	out(value) {
-		this.setTransform("scale", value * -1 + 1);
+		this.setTransform("scale", (this.max - this.min) * (value * -1 + 1) + this.min);
 	}
 }
 
