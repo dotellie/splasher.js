@@ -33,6 +33,38 @@ class Splash {
 	}
 }
 
+// Creates a splash instace from an array of objects.
+//
+// Example:
+// ```
+// from([
+//     {
+//         delay: 1, in: 0.5, out: 0.5,
+//         effects: [new GrowAndShrink(element)]
+//     },
+//     {
+//         delay: 2, in: 1, stay: 0.2, out: 1
+//         effects: [new FadeInAndOut(element)]
+//     }
+// ]);
+// ```
+// (Yes, I am aware that this would be pointless to do, but whatever)
+function from(array) {
+	let splashTimers = [];
+	for (let time of array) {
+		splashTimers.push(new SplashTimer(
+			time.delay || 0,
+			time.effects,
+			{
+				open: time.in || 0,
+				stay: time.stay || 0,
+				out: time.out || 0
+			}
+		));
+	}
+	return new Splash(splashTimers);
+}
+
 // Creates a splash timer object. Used for timing all the effects.
 //
 // delay: How much should this timer be delayed after the splash was started (seconds)
