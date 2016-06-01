@@ -59,29 +59,40 @@ class SplashTimer {
 	update(delta) {
 		this.seconds += delta / 1000;
 
-		let partTime = [
-			this.parts.open,
-			this.parts.open + this.parts.stay,
-			this.parts.open + this.parts.stay + this.parts.out
-		];
+		if (this.started) {
+			let partTime = [
+				this.parts.open,
+				this.parts.open + this.parts.stay,
+				this.parts.open + this.parts.stay + this.parts.out
+			];
 
-		if (this.seconds <= partTime[0]) {
-			let value = this.seconds / this.parts.open;
+			if (this.seconds <= partTime[0]) {
+				let value = this.seconds / this.parts.open;
 
-			for (let effect of this.effects) {
-				if (typeof effect.in == "function") effect.in(value);
+				for (let effect of this.effects) {
+					if (typeof effect.in == "function") effect.in(value);
+				}
+			} else if (this.seconds <= partTime[1]) {
+				let value = (this.seconds - partTime[0]) / this.parts.stay;
+
+				for (let effect of this.effects) {
+					if (typeof effect.stay == "function") effect.stay(value);
+				}
+			} else if (this.seconds <= partTime[2]) {
+				let value = (this.seconds - partTime[1]) / this.parts.out;
+
+				for (let effect of this.effects) {
+					if (typeof effect.out == "function") effect.out(value);
+				}
 			}
-		} else if (this.seconds <= partTime[1]) {
-			let value = (this.seconds - partTime[0]) / this.parts.stay;
-
+		} else {
 			for (let effect of this.effects) {
-				if (typeof effect.stay == "function") effect.stay(value);
+				if (typeof effect.in == "function") effect.in(0);
 			}
-		} else if (this.seconds <= partTime[2]) {
-			let value = (this.seconds - partTime[1]) / this.parts.out;
 
-			for (let effect of this.effects) {
-				if (typeof effect.out == "function") effect.out(value);
+			if (this.seconds >= this.delay) {
+				this.seconds = 0;
+				this.started = true;
 			}
 		}
 	}
