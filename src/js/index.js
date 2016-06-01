@@ -130,6 +130,10 @@ class SplashEffect {
 
 // ### Some basic effects ###
 
+function cosineInterpolate(value) {
+	return((1 - Math.cos(value * Math.PI)) / 2);
+}
+
 class GrowAndShrink extends SplashEffect {
 	constructor(element, min, max) {
 		super(element);
@@ -139,14 +143,24 @@ class GrowAndShrink extends SplashEffect {
 	}
 
 	in(value) {
-		this.setTransform("scale", (this.max - this.min) * value + this.min);
+		this.setTransform("scale", cosineInterpolate(
+			(this.max - this.min) * value + this.min)
+		);
 	}
 
 	out(value) {
-		this.setTransform("scale", (this.max - this.min) * (value * -1 + 1) + this.min);
+		this.setTransform("scale", cosineInterpolate(
+			(this.max - this.min) * (value * -1 + 1) + this.min)
+		);
 	}
 }
 
-class FadeIn extends SplashEffect {
+class FadeInAndOut extends SplashEffect {
+	in(value) {
+		this.setStyle("opacity", value);
+	}
 
+	out(value) {
+		this.setStyle("opacity", value * -1 + 1);
+	}
 }
