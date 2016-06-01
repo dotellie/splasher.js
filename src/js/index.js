@@ -99,17 +99,31 @@ class SplashTimer {
 // and stay respectively as needed. If you don't want to use one of them, skip it.
 //
 // When implementing the in, out and stay functions, you most likely want to use
-// css styles, which you do with `this.setStyle(style, value)`.
+// css styles, which you do with `this.setStyle(style, value)`. Keep in mind that
+// if you want to use transforms, you should use `this.setTransform(key, valye)`.
+
 class SplashEffect {
 	constructor(element) {
 		this.element = element;
+		this.transforms = {};
 	}
 
 	setStyle(style, value) {
-		if (style != "transform") {
-			this.element.style[style] = value;
-		} else {
-			this.element.style[style] += value;
+		this.element.style[style] = value;
+	}
+
+	setTransform(key, value) {
+		this.transforms[key] = value;
+		this.applyTransforms();
+	}
+
+	applyTransforms() {
+		this.element.style.transform = "";
+		console.log(this.transforms);
+
+		for (let transformName in this.transforms) {
+			let transformValue = this.transforms[transformName];
+			this.element.style.transform += transformName + "(" + transformValue + ")";
 		}
 	}
 }
@@ -126,11 +140,11 @@ class GrowAndShrink extends SplashEffect {
 	}
 
 	in(value) {
-		this.setStyle("transform", "scale(" + value + ")");
+		this.setTransform("scale", value);
 	}
 
 	out(value) {
-		this.setStyle("transform", "scale(" + (value * -1 + 1) + ")");
+		this.setTransform("scale", value * -1 + 1);
 	}
 }
 
