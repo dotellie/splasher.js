@@ -12,30 +12,49 @@
 				background: rgba(50, 166, 212, 1);
 			}
 
-			#text {
+			.text {
 				position: absolute;
 				top: 0; right: 0; bottom: 0; left: 0;
 				margin: auto;
+				text-align: center;
+				color: white;
+			}
+
+			#maintext {
 				width: 700px;
 				height: 100px;
 				line-height: 100px;
-				text-align: center;
 				font-size: 60px;
-				color: white;
+			}
+
+			#subtext {
+				width: 700px;
+				height: 50px;
+				line-height: 50px;
+				font-size: 30px;
+				top: 150px;
 			}
 		</style>
 	</head>
 	<body>
-		<span id="text">Hello, World!</span>
+		<span class="text" id="maintext">Hello, World!</span>
+		<span class="text" id="subtext">Welcome to splasher.js</span>
 
 		<script>
-			var element = document.getElementById("text");
+			var maintext = document.getElementById("maintext");
+			var subtext = document.getElementById("subtext");
 			var splashTimes = [
 				new SplashTimer(1, [
-					new GrowAndShrink(element, 0.5, 1),
-					new FadeInAndOut(element)
+					new GrowAndShrink(maintext, 0.5, 1),
+					new FadeInAndOut(maintext)
 				], {
-					open: 0.3, stay: 2, out: 0.5
+					open: 0.3, stay: 2.4, out: 0.5
+				}),
+				new SplashTimer(2, [
+					new GrowAndShrink(subtext, 0.5, 1),
+					new FadeInAndOut(subtext)
+				], {
+					open: 0.3, stay: 1.8, out: 0.2
 				})
 			];
 			var splash = new Splash(splashTimes);
