@@ -69,20 +69,19 @@ class SplashTimer {
 			let value = this.seconds / this.parts.open;
 
 			for (let effect of this.effects) {
-				effect.in(value);
+				if (typeof effect.in == "function") effect.in(value);
 			}
-			console.log(this.seconds, partTime);
 		} else if (this.seconds <= partTime[1]) {
 			let value = (this.seconds - partTime[0]) / this.parts.stay;
 
 			for (let effect of this.effects) {
-				effect.stay(value);
+				if (typeof effect.stay == "function") effect.stay(value);
 			}
 		} else if (this.seconds <= partTime[2]) {
 			let value = (this.seconds - partTime[1]) / this.parts.out;
 
 			for (let effect of this.effects) {
-				effect.out(value);
+				if (typeof effect.out == "function") effect.out(value);
 			}
 		}
 	}
