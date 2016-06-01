@@ -60,35 +60,31 @@ class SplashTimer {
 		this.seconds += delta / 1000;
 
 		if (this.started) {
-			let partTime = [
-				this.parts.open,
-				this.parts.open + this.parts.stay,
-				this.parts.open + this.parts.stay + this.parts.out
-			];
-
-			if (this.seconds <= partTime[0]) {
+			if (this.seconds <= this._times[0]) {
 				let value = this.seconds / this.parts.open;
-
-				for (let effect of this.effects) {
-					if (typeof effect.in == "function") effect.in(value);
+				this._runEffect("in", value);
+			} else if (this.seconds <= this._times[1]) {
+				if (this._count == 0) {
+					this._runEffect("in", 1);
+					this._count = 1;
 				}
-			} else if (this.seconds <= partTime[1]) {
-				let value = (this.seconds - partTime[0]) / this.parts.stay;
 
-				for (let effect of this.effects) {
-					if (typeof effect.stay == "function") effect.stay(value);
+				let value = (this.seconds - this._times[0]) / this.parts.stay;
+				this._runEffect("stay", value);
+			} else if (this.seconds <= this._times[2]) {
+				if (this._count == 1) {
+					this._runEffect("stay", 1);
+					this._count = 2;
 				}
-			} else if (this.seconds <= partTime[2]) {
-				let value = (this.seconds - partTime[1]) / this.parts.out;
 
-				for (let effect of this.effects) {
-					if (typeof effect.out == "function") effect.out(value);
-				}
+				let value = (this.seconds - this._times[1]) / this.parts.out;
+				this._runEffect("out", value);
+			} else if (this._count == 2) {
+				this._runEffect("out", 1);
+				this._count = 3;
 			}
 		} else {
-			for (let effect of this.effects) {
-				if (typeof effect.in == "function") effect.in(0);
-			}
+			this._runEffect("in", 0);
 
 			if (this.seconds >= this.delay) {
 				this.seconds = 0;
@@ -97,8 +93,20 @@ class SplashTimer {
 		}
 	}
 
+	_runEffect(stage, value) {
+		for (let effect of this.effects) {
+			if (typeof effect[stage] == "function") effect[stage](value);
+		}
+	}
+
 	start() {
 		this.seconds = 0;
+		this._times = [
+			this.parts.open,
+			this.parts.open + this.parts.stay,
+			this.parts.open + this.parts.stay + this.parts.out
+		];
+		this._count = 0;
 	}
 }
 
