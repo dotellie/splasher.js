@@ -6,7 +6,6 @@ var gulp = require("gulp"),
 	gutil = require("gulp-util");
 
 var htmlPath = "src/html/**/*.html",
-	cssPath = "src/css/**/*.css",
 	jsPath = "src/js/**/*.js";
 
 gulp.task("js", function() {
@@ -22,16 +21,10 @@ gulp.task("html", function() {
 		.pipe(gulp.dest("bin"));
 });
 
-gulp.task("css", function() {
-	return gulp.src(cssPath)
-		.pipe(gulp.dest("bin/css"));
-});
-
-gulp.task("default", ["html", "css", "js"]);
+gulp.task("default", ["html", "js"]);
 
 gulp.task("watch", ["default"], function() {
 	gulp.watch(htmlPath, ["html"]);
-	gulp.watch(cssPath, ["css"]);
 	gulp.watch(jsPath, ["js"]);
 
 	// Local web-server
