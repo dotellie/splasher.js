@@ -4,6 +4,7 @@
   "description": "A simple and lightweight library for making simple animations.",
   "main": "./lib/splasher.js",
   "scripts": {
+    "prepublish": "gulp",
     "build": "gulp",
     "dev": "gulp watch"
   },
