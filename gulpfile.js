@@ -64,5 +64,5 @@ gulp.task("watch", ["default"], function() {
 	buildJS(true);
 
 	// Local web-server
-	gulp.src("bin").pipe(webserver({ livereload: true }));
+	gulp.src("lib").pipe(webserver({ livereload: true }));
 });
