@@ -9,8 +9,6 @@ var gulp = require("gulp"),
 	source = require("vinyl-source-stream"),
 	buffer = require("vinyl-buffer");
 
-var htmlPath = "src/html/**/*.html";
-
 function handleError(error) {
 	notify.onError({
 		title: "Build Error!",
@@ -60,15 +58,9 @@ gulp.task("js", function() {
 	return buildJS(false);
 });
 
-gulp.task("html", function() {
-	return gulp.src(htmlPath)
-		.pipe(gulp.dest("bin"));
-});
-
-gulp.task("default", ["html", "js"]);
+gulp.task("default", ["js"]);
 
 gulp.task("watch", ["default"], function() {
-	gulp.watch(htmlPath, ["html"]);
 	buildJS(true);
 
 	// Local web-server
