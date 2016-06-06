@@ -49,7 +49,7 @@ export class Splash {
 // ]);
 // ```
 // (Yes, I am aware that this would be pointless to do, but whatever)
-export function from(array) {
+export function splashFromArray(array) {
 	let splashTimers = [];
 	for (let time of array) {
 		splashTimers.push(new SplashTimer(
