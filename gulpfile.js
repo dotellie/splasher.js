@@ -21,7 +21,7 @@ function handleError(error) {
 function buildJS(watch) {
 	var browserifyInstance = browserify({
 			entries: ["./src/js/index.js"],
-			debug: true,
+			debug: false,
 			cache: {},
 		    packageCache: {},
 		    fullPaths: watch
