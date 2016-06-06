@@ -1,13 +1,9 @@
 var gulp = require("gulp"),
 	webserver = require("gulp-webserver"),
 	notify = require("gulp-notify"),
-	babelify = require("babelify"),
+	babel = require("gulp-babel"),
 	sourcemaps = require("gulp-sourcemaps"),
-	gutil = require("gulp-util"),
-	browserify = require("browserify"),
-	watchify = require("watchify"),
-	source = require("vinyl-source-stream"),
-	buffer = require("vinyl-buffer");
+	gutil = require("gulp-util");
 
 function handleError(error) {
 	notify.onError({
@@ -18,50 +14,19 @@ function handleError(error) {
 	this.emit("end");
 }
 
-function buildJS(watch) {
-	var browserifyInstance = browserify({
-			entries: ["./src/js/index.js"],
-			debug: false,
-			cache: {},
-		    packageCache: {},
-		    fullPaths: watch
-		}).transform("babelify", {
-			presets: ["es2015"]
-		});
-
-	var b = watch ? watchify(browserifyInstance) : browserifyInstance;
-
- 	var build = function() {
-		return b.bundle()
-			.on("error", handleError)
-			.pipe(source("splasher.js"))
-			.pipe(buffer())
-			.pipe(sourcemaps.init({ loadMaps: true }))
-			.pipe(sourcemaps.write("."))
-			.pipe(gulp.dest("lib/"));
-	}
-
-	if (watch) {
-		b.on("update", function() {
-			gutil.log("Rebundling...");
-			build();
-		});
-		b.on("log", function(e) {
-			gutil.log("Bundling Successful: " + gutil.colors.gray(e));
-		});
-	}
-
-	return build();
-}
-
 gulp.task("js", function() {
-	return buildJS(false);
+	return gulp.src("./src/js/**/*.js")
+		.pipe(sourcemaps.init())
+		.pipe(babel({ presets: ["es2015"] }))
+		.on("error", handleError)
+		.pipe(sourcemaps.write("."))
+		.pipe(gulp.dest("lib/"));
 });
 
 gulp.task("default", ["js"]);
 
 gulp.task("watch", ["default"], function() {
-	buildJS(true);
+	gulp.watch("./src/js/**/*.js", ["js"]);
 
 	// Local web-server
 	gulp.src("lib").pipe(webserver({ livereload: true }));
