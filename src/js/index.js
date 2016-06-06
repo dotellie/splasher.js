@@ -5,7 +5,7 @@
 // If you assign an onEnd property to the object and it's a function, it'll fire
 // once the splash is completed.
 
-class Splash {
+export class Splash {
 	constructor(times) {
 		this._times = times;
 	}
@@ -49,7 +49,7 @@ class Splash {
 // ]);
 // ```
 // (Yes, I am aware that this would be pointless to do, but whatever)
-function from(array) {
+export function from(array) {
 	let splashTimers = [];
 	for (let time of array) {
 		splashTimers.push(new SplashTimer(
@@ -77,7 +77,7 @@ function from(array) {
 //
 // If one of the parts isn't present, a value of 0 seconds will be assumed.
 
-class SplashTimer {
+export class SplashTimer {
 	constructor(delay, effects, parts) {
 		this.delay = delay;
 		this.effects = effects;
@@ -153,7 +153,7 @@ class SplashTimer {
 // css styles, which you do with `this.setStyle(style, value)`. Keep in mind that
 // if you want to use transforms, you should use `this.setTransform(key, valye)`.
 
-class SplashEffect {
+export class SplashEffect {
 	constructor(element) {
 		this.element = element;
 		this.transforms = {};
@@ -216,13 +216,4 @@ class FadeInAndOut extends SplashEffect {
 	}
 }
 
-export default {
-	Splash,
-	SplashTimer,
-	SplashEffect,
-	effects: {
-		GrowAndShrink,
-		FadeInAndOut
-	},
-	from
-}
+export const effects = { GrowAndShrink, FadeInAndOut };
