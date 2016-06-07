@@ -1,11 +1,11 @@
 import { SplashEffect } from "./effect.js";
 
 export class GrowAndShrink extends SplashEffect {
-	constructor(element, min, max) {
+	constructor(element, options) {
 		super(element);
 
-		this.min = min || 0;
-		this.max = max || 1;
+		this.min = options.min || 0;
+		this.max = options.max || 1;
 	}
 
 	in(value) {
