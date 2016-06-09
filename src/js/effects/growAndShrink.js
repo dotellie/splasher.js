@@ -5,6 +5,8 @@ export class GrowAndShrink extends SplashEffect {
 	constructor(element, options) {
 		super(element);
 
+		options = options || {};
+
 		this.min = options.min || 0;
 		this.max = options.max || 1;
 

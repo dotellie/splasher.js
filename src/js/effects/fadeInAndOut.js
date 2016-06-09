@@ -5,6 +5,8 @@ export class FadeInAndOut extends SplashEffect {
 	constructor(element, options) {
 		super(element);
 
+		options = options || {};
+
 		this.interpolation = options.interpolation || new Linear();
 	}
 
