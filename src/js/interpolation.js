@@ -1,3 +1,6 @@
+// More of these in a PR would be VERY welcome. (I bascially only implemented
+// ones i needed)
+
 export class Linear {
 	interpolate(value) {
 		return value;
