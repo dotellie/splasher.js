@@ -15,13 +15,13 @@ export class GrowAndShrink extends SplashEffect {
 
 	in(value) {
 		this.setTransform("scale",
-			(this.max - this.min) * this.interpolation.interpolate(value) + this.min
+			(this.max - this.min) * this.interpolation.in(value) + this.min
 		);
 	}
 
 	out(value) {
 		this.setTransform("scale",
-			(this.max - this.min) * this.interpolation.interpolate(value * -1 + 1) + this.min
+			(this.max - this.min) * this.interpolation.out(value * -1 + 1) + this.min
 		);
 	}
 }

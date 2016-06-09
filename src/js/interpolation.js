@@ -2,6 +2,10 @@
 // ones i needed)
 
 export class Linear {
+	constructor() {
+		this.in = this.out = this.interpolate;
+	}
+
 	interpolate(value) {
 		return value;
 	}
@@ -10,6 +14,14 @@ export class Linear {
 export class Cosine {
 	interpolate(value) {
 		return((1 - Math.cos(value * Math.PI)) / 2);
+	}
+
+	in(value) {
+		return this.interpolate(value);
+	}
+
+	out(value) {
+		return this.interpolate(value * -1 + 1);
 	}
 }
 
@@ -21,5 +33,13 @@ export class Bounce {
 				return b * b - Math.pow((11 - 6 * a - 11 * value) / 4, 2);
 			}
 		}
+	}
+
+	in(value) {
+		return this.interpolate(value * -1 + 1) * -1 + 1;
+	}
+
+	out(value) {
+		return this.interpolate(value * -1 + 1) * -1 + 1;
 	}
 }

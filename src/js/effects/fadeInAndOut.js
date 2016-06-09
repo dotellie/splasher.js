@@ -11,10 +11,10 @@ export class FadeInAndOut extends SplashEffect {
 	}
 
 	in(value) {
-		this.setStyle("opacity", this.interpolation.interpolate(value));
+		this.setStyle("opacity", this.interpolation.in(value));
 	}
 
 	out(value) {
-		this.setStyle("opacity", this.interpolation.interpolate(value * -1 + 1));
+		this.setStyle("opacity", this.interpolation.out(value * -1 + 1));
 	}
 }
