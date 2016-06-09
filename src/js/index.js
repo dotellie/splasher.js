@@ -142,8 +142,8 @@ export class SplashTimer {
 	}
 }
 
-import { GrowAndShrink, FadeInAndOut } from "./effects";
-import { Linear, Cosine } from "./interpolation.js";
+import * as effects from "./effects";
+import * as interpolation from "./interpolation.js";
 
-export const effects = { GrowAndShrink, FadeInAndOut };
-export const interpolation = { Linear, Cosine };
+export { effects };
+export { interpolation };
