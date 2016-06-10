@@ -1,6 +1,6 @@
 {
   "name": "splasher.js",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A simple and lightweight library for making simple animations.",
   "main": "./lib/index.js",
   "scripts": {
