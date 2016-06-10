@@ -36,10 +36,10 @@ export class Bounce {
 	}
 
 	in(value) {
-		return this.interpolate(value * -1 + 1) * -1 + 1;
+		return this.interpolate(value);
 	}
 
 	out(value) {
-		return this.interpolate(value * -1 + 1) * -1 + 1;
+		return this.interpolate(value);
 	}
 }
