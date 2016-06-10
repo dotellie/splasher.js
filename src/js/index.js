@@ -111,8 +111,12 @@ export class SplashTimer {
 
 				let value = (this.seconds - this._times[1]) / this.parts.out;
 				this._runEffect("out", value);
-			} else if (this._count == 2) {
-				this._runEffect("out", 1);
+			} else if (this._count < 3) {
+				switch (this._count) {
+					case 0: this._runEffect("in", 1); break;
+					case 1: this._runEffect("stay", 1); break;
+					case 2: this._runEffect("out", 1); break;
+				}
 				this._count = 3;
 			}
 		} else {
