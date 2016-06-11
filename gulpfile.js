@@ -1,5 +1,4 @@
 var gulp = require("gulp"),
-	webserver = require("gulp-webserver"),
 	notify = require("gulp-notify"),
 	babel = require("gulp-babel"),
 	sourcemaps = require("gulp-sourcemaps"),
@@ -27,7 +26,4 @@ gulp.task("default", ["js"]);
 
 gulp.task("watch", ["default"], function() {
 	gulp.watch("./src/js/**/*.js", ["js"]);
-
-	// Local web-server
-	gulp.src("lib").pipe(webserver({ livereload: true }));
 });
