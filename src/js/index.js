@@ -22,7 +22,7 @@ export class Splash {
 
 	_update() {
 		let now = window.performance.now(),
-			delta = now - this._previousTime;
+			delta = Math.min(now - this._previousTime, 100);
 		this._previousTime = now;
 
 		for (let time of this._times) {
