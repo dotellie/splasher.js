@@ -36,6 +36,10 @@ export class Splash {
 		}
 		this.completed = !allNotDone;
 
+		if (this.completed && typeof this.onEnd === "function") {
+			this.onEnd();
+		}
+
 		requestAnimationFrame(this._update.bind(this));
 	}
 }
