@@ -30,9 +30,11 @@ export class Splash {
 			delta = Math.min(now - this._previousTime, 100);
 		this._previousTime = now;
 
+		let allNotDone = false;
 		for (let time of this._times) {
-			time.update(delta);
+			allNotDone = !time.update(delta) || allNotDone;
 		}
+		this.completed = !allNotDone;
 
 		requestAnimationFrame(this._update.bind(this));
 	}
@@ -132,6 +134,7 @@ export class SplashTimer {
 				this.started = true;
 			}
 		}
+		return this._state == AFTER_END;
 	}
 
 	_runEffect(stage, value) {
