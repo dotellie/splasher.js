@@ -13,6 +13,8 @@ const ANIMATING_IN = 1,
 export class Splash {
 	constructor(times) {
 		this._times = times;
+
+		this.reverse = false;
 	}
 
 	run() {
@@ -39,7 +41,7 @@ export class Splash {
 
 	_update() {
 		let now = window.performance.now(),
-			delta = Math.min(now - this._previousTime, 100);
+			delta = Math.min(now - this._previousTime, 100) * (this.reverse ? -1 : 1);
 		this._previousTime = now;
 
 		let allNotDone = false;
