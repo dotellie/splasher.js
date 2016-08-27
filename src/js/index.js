@@ -9,7 +9,6 @@ const ANIMATING_IN = 1,
 //
 // If you assign an onEnd property to the object and it's a function, it'll fire
 // once the splash is completed.
-
 export class Splash {
 	constructor(times) {
 		this._times = times;
@@ -17,6 +16,7 @@ export class Splash {
 		this.reverse = false;
 	}
 
+	// Starts the splash (needs to be run before anything else)
 	run() {
 		this._previousTime = window.performance.now();
 
@@ -29,10 +29,12 @@ export class Splash {
 		this._update();
 	}
 
+	// Pauses the splash
 	pause() {
 		this.running = false;
 	}
 
+	// Resumes the splash from a pause
 	resume() {
 		this.running = true;
 		this._previousTime = window.performance.now();
@@ -73,7 +75,6 @@ export class Splash {
 //     }
 // ]);
 // ```
-// (Yes, I am aware that this would be pointless to do, but whatever)
 export function splashFromArray(array) {
 	let splashTimers = [];
 	for (let time of array) {
@@ -101,7 +102,6 @@ export function splashFromArray(array) {
 // }
 //
 // If one of the parts isn't present, a value of 0 seconds will be assumed.
-
 export class SplashTimer {
 	constructor(delay, effects, parts) {
 		this.delay = delay;
@@ -118,10 +118,13 @@ export class SplashTimer {
 
 		if (this.started) {
 			if (this.seconds <= this._times[0]) {
+				// Elapsed time less than in part.
 				let value = this.seconds / this.parts.open;
 				this._runEffect("in", value);
 			} else if (this.seconds <= this._times[1]) {
+				// Elapsed time less than out start.
 				if (this._state == ANIMATING_IN) {
+					// Make sure everything in "in" was completed all the way.
 					this._runEffect("in", 1);
 					this._state = PAUSING;
 				}
@@ -129,7 +132,9 @@ export class SplashTimer {
 				let value = (this.seconds - this._times[0]) / this.parts.stay;
 				this._runEffect("stay", value);
 			} else if (this.seconds <= this._times[2]) {
+				// Elapsed time less than out done.
 				if (this._state == PAUSING) {
+					// Make sure everything in "stay" was completed all the way.
 					this._runEffect("stay", 1);
 					this._state = ANIMATING_OUT;
 				}
@@ -137,6 +142,9 @@ export class SplashTimer {
 				let value = (this.seconds - this._times[1]) / this.parts.out;
 				this._runEffect("out", value);
 			} else if (this._state < AFTER_END) {
+				// No other match on elapsed time must mean that everything has
+				// been completed, but everything isn't neccesarily in the right
+				// state. Therefore, complete whatever section was active.
 				switch (this._state) {
 					case ANIMATING_IN: this._runEffect("in", 1); break;
 					case PAUSING: this._runEffect("stay", 1); break;
@@ -145,6 +153,7 @@ export class SplashTimer {
 				this._state = AFTER_END;
 			}
 		} else {
+			// Still in delay, make sure everything is in initial state.
 			this._runEffect("in", 0);
 
 			if (this.seconds >= this.delay) {
@@ -161,6 +170,7 @@ export class SplashTimer {
 		}
 	}
 
+	// Initialization function
 	start() {
 		this.seconds = 0;
 		this._times = [
