@@ -22,6 +22,18 @@ export class Splash {
 			time.start();
 		}
 
+		this.running = true;
+
+		this._update();
+	}
+
+	pause() {
+		this.running = false;
+	}
+
+	resume() {
+		this.running = true;
+		this._previousTime = window.performance.now();
 		this._update();
 	}
 
@@ -40,7 +52,7 @@ export class Splash {
 			this.onEnd();
 		}
 
-		requestAnimationFrame(this._update.bind(this));
+		if (this.running) requestAnimationFrame(this._update.bind(this));
 	}
 }
 
